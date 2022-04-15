@@ -246,7 +246,7 @@ function InsOpenVPN(){
 # My OpenVPN 
 port MyOvpnPort
 dev tun
-proto tcp
+proto udp
 ca /etc/openvpn/ca.crt
 cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
@@ -263,8 +263,8 @@ max-clients 4000
 server 10.200.0.0 255.255.0.0
 tun-mtu 1500
 tun-mtu-extra 32
-mssfix 1450
-reneg-sec 3600
+mssfix 1400
+reneg-sec 0
 sndbuf 0
 rcvbuf 0
 push "sndbuf 521200"
@@ -273,8 +273,7 @@ push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
 client-to-client
-keepalive 600 600
-connect-retry 0 1
+keepalive 10 120
 persist-tun
 persist-key
 persist-remote-ip
