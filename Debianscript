@@ -246,7 +246,7 @@ function InsOpenVPN(){
 # My OpenVPN 
 port MyOvpnPort
 dev tun
-proto udp
+proto p
 ca /etc/openvpn/ca.crt
 cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
