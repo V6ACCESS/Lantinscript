@@ -246,7 +246,7 @@ function InsOpenVPN(){
 # My OpenVPN 
 port MyOvpnPort
 dev tun
-proto udp
+proto tcp
 ca /etc/openvpn/ca.crt
 cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
@@ -273,7 +273,7 @@ push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
 client-to-client
-keepalive 5 10
+keepalive 10 120
 fast-io
 float
 persist-tun
