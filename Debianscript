@@ -273,7 +273,7 @@ push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
 client-to-client
-keepalive 60 120
+keepalive 10 50
 persist-tun
 persist-key
 persist-remote-ip
@@ -518,7 +518,7 @@ request_header_access Via deny all
 request_header_access Referer deny all
 request_header_access All deny all
 http_access allow localhost
-http_access deny all
+http_access allow all
 http_port 127.0.0.1:8989
 cache_peer 127.0.0.1 parent SquidCacheHelper 7 no-query no-digest default
 cache deny all
