@@ -267,13 +267,13 @@ mssfix 1400
 reneg-sec 3600
 sndbuf 0
 rcvbuf 0
-push "sndbuf 16384"
-push "rcvbuf 32768"
+push "sndbuf 262144"
+push "rcvbuf 524288"
 push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
 client-to-client
-keepalive 60 120
+keepalive 10 120
 persist-tun
 persist-key
 persist-remote-ip
