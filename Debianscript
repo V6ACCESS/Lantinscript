@@ -128,7 +128,7 @@ X11Forwarding yes
 PrintMotd no
 ClientAliveInterval 240
 ClientAliveCountMax 2
-UseDNS no
+UseDNS yes
 Banner /etc/banner
 AcceptEnv LANG LC_*
 Subsystem   sftp  /usr/lib/openssh/sftp-server
