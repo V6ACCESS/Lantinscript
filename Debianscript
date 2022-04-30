@@ -252,7 +252,7 @@ cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
 dh /etc/openvpn/dh.pem
 duplicate-cn
-cipher none
+cipher aes-128-cbc
 ncp-disable
 auth none
 comp-lzo
@@ -265,8 +265,8 @@ tun-mtu 1500
 tun-mtu-extra 32
 mssfix 1400
 reneg-sec 3600
-sndbuf 0
-rcvbuf 0
+sndbuf 512000
+rcvbuf 512000
 push "sndbuf 512000"
 push "rcvbuf 512000"
 push "redirect-gateway def1"
