@@ -481,7 +481,7 @@ forwarded-connect-retries 1
 accept-intercepted-requests 1
 allow-cgi-request-crunching 1
 split-large-forms 0
-keep-alive-timeout 5
+keep-alive-timeout 10
 tolerate-pipelining 1
 socket-timeout 300
 permit-access 0.0.0.0/0 IP-ADDRESS
