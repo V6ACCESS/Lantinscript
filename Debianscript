@@ -128,7 +128,7 @@ X11Forwarding yes
 PrintMotd no
 ClientAliveInterval 240
 ClientAliveCountMax 2
-UseDNS yes
+UseDNS no
 Banner /etc/banner
 AcceptEnv LANG LC_*
 Subsystem   sftp  /usr/lib/openssh/sftp-server
@@ -264,16 +264,16 @@ server 10.200.0.0 255.255.0.0
 tun-mtu 1500
 tun-mtu-extra 32
 mssfix 1400
-reneg-sec 0
-sndbuf 262144
-rcvbuf 524288
-push "sndbuf 262144"
-push "rcvbuf 524288"
+reneg-sec 3600
+sndbuf 0
+rcvbuf 0
+push "sndbuf 393216"
+push "rcvbuf 393216"
 push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
 client-to-client
-keep-alive 60 120
+keepalive 60 120
 persist-tun
 persist-key
 persist-remote-ip
@@ -518,7 +518,7 @@ request_header_access Via deny all
 request_header_access Referer deny all
 request_header_access All deny all
 http_access allow localhost
-http_access allow all
+http_access deny all
 http_port 127.0.0.1:8989
 cache_peer 127.0.0.1 parent SquidCacheHelper 7 no-query no-digest default
 cache deny all
