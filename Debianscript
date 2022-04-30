@@ -279,7 +279,6 @@ keepalive 5 120
 persist-tun
 persist-key
 persist-remote-ip
-explicit-exit-notify 1
 status /etc/openvpn/stats.txt
 log /etc/openvpn/openvpn.log
 verb 4
