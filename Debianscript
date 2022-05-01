@@ -128,7 +128,7 @@ X11Forwarding yes
 PrintMotd no
 ClientAliveInterval 240
 ClientAliveCountMax 2
-UseDNS no
+UseDNS yes
 Banner /etc/banner
 AcceptEnv LANG LC_*
 Subsystem   sftp  /usr/lib/openssh/sftp-server
@@ -259,7 +259,7 @@ comp-lzo
 plugin /etc/openvpn/openvpn-auth-pam.so login
 verify-client-cert none
 username-as-common-name
-max-clients 500
+max-clients 1000
 server 10.200.0.0 255.255.0.0
 tun-mtu 1500
 tun-mtu-extra 32
