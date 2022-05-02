@@ -272,9 +272,8 @@ push "rcvbuf 512000"
 push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
-push "dhcp-option DNS 8.8.8.8"
-push "dhcp-option DNS 8.8.4.4"
-push "dhcp-option DOMAIN datempec.com"
+push "dhcp-option DNS h.facebook.com"
+push "dhcp-option DNS shop.globe.com.ph"
 client-to-client
 keepalive 10 120
 persist-tun
