@@ -272,8 +272,8 @@ push "rcvbuf 512000"
 push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
-push "dhcp-option DNS h.facebook.com"
-push "dhcp-option DNS shop.globe.com.ph"
+push "dhcp-option DNS 9.9.9.9"
+push "dhcp-option DNS 149.112.112.112"
 client-to-client
 keepalive 10 120
 persist-tun
