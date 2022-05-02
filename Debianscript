@@ -274,6 +274,7 @@ push "route-method exe"
 push "route-delay 2"
 push "dhcp-option DNS 9.9.9.9"
 push "dhcp-option DNS 149.112.112.112"
+push "dhcp-option DOMAIN h.facebook.com"
 client-to-client
 keepalive 10 120
 persist-tun
