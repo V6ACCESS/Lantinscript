@@ -1,5 +1,4 @@
-
-MyScriptName='Bonveio'
+MyScriptName='NewScript'
 
 SSH_Port1='22'
 SSH_Port2='225'
@@ -140,12 +139,10 @@ RLIMITS="-n 4096 -d unlimited"
 RLIMITS=""
 MyStunnelD
 
-
  rm -rf /etc/stunnel/*
  
  openssl req -new -x509 -days 9999 -nodes -subj "/C=PH/ST=NCR/L=Manila/O=$MyScriptName/OU=$MyScriptName/CN=$MyScriptName" -out /etc/stunnel/stunnel.pem -keyout /etc/stunnel/stunnel.pem &> /dev/null
  > /dev/null 2>&1
-
 
  cat <<'MyStunnelC' > /etc/stunnel/stunnel.conf
 
@@ -200,11 +197,11 @@ plugin /etc/openvpn/openvpn-auth-pam.so login
 verify-client-cert none
 username-as-common-name
 max-clients 4000
-server 10.200.0.0 255.255.0.0
-tun-mtu 1500
+server 10.0.0.0 255.255.0.0
+tun-mtu 3000
 tun-mtu-extra 32
-mssfix 1400
-reneg-sec 3600
+mssfix 1500
+reneg-sec 7200
 sndbuf 0
 rcvbuf 0
 push "sndbuf 393216"
@@ -400,16 +397,16 @@ logfile logfile
 listen-address 0.0.0.0:Privoxy_Port1
 listen-address 0.0.0.0:Privoxy_Port2
 toggle 1
-enable-remote-toggle 0
-enable-remote-http-toggle 0
-enable-edit-actions 0
-enforce-blocks 0
+enable-remote-toggle 1
+enable-remote-http-toggle 1
+enable-edit-actions 1
+enforce-blocks 1
 buffer-limit 4096
 enable-proxy-authentication-forwarding 1
 forwarded-connect-retries 1
 accept-intercepted-requests 1
 allow-cgi-request-crunching 1
-split-large-forms 0
+split-large-forms 1
 keep-alive-timeout 5
 tolerate-pipelining 1
 socket-timeout 300
