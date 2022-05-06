@@ -204,8 +204,8 @@ mssfix 1500
 reneg-sec 7200
 sndbuf 0
 rcvbuf 0
-push "sndbuf 393216"
-push "rcvbuf 393216"
+push "sndbuf 999999"
+push "rcvbuf 999999"
 push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
