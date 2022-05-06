@@ -210,7 +210,7 @@ push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
 client-to-client
-keepalive 10 120
+keepalive 10 300
 persist-tun
 persist-key
 persist-remote-ip
