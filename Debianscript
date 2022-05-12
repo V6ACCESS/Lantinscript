@@ -214,7 +214,7 @@ TIMEOUTclose = 0
 
 [dropbear]
 accept = Stunnel_Port1
-connect = 127.0.0.1:dropbear_port_c
+connect = 192.0.0.4:dropbear_port_c
 
 [openssh]
 accept = Stunnel_Port2
@@ -439,7 +439,7 @@ fi
 
  # Iptables Rule for OpenVPN server
  PUBLIC_INET="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
- IPCIDR='10.200.0.0/16'
+ IPCIDR='192.0.0.4/16'
  iptables -I FORWARD -s $IPCIDR -j ACCEPT
  iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
  iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
@@ -519,8 +519,8 @@ request_header_access Referer deny all
 request_header_access All deny all
 http_access allow localhost
 http_access deny all
-http_port 127.0.0.1:8989
-cache_peer 127.0.0.1 parent SquidCacheHelper 7 no-query no-digest default
+http_port 192.0.0.4:8989
+cache_peer 192.0.0.4 parent SquidCacheHelper 7 no-query no-digest default
 cache deny all
 mySquid
  sed -i "s|SquidCacheHelper|$Privoxy_Port1|g" /etc/squid/squid.conf
@@ -536,7 +536,7 @@ function OvpnConfigs(){
  cat <<'myNginxC' > /etc/nginx/conf.d/bonveio-ovpn-config.conf
 # My OpenVPN Config Download Directory
 server {
- listen 0.0.0.0:myNginx;
+ listen 192.0.0.4:myNginx;
  server_name localhost;
  root /var/www/openvpn;
  index index.html;
