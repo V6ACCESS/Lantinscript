@@ -17,7 +17,7 @@ SSH_Port1='22'
 SSH_Port2='225'
 
 # Your SSH Banner
-SSH_Banner='https://raw.githubusercontent.com/V6ACCESS/banner/main/ServerMessages'
+SSH_Banner='https://pastebin.com/raw/d7jULvq8'
 
 # Dropbear Ports
 Dropbear_Port1='550'
@@ -32,7 +32,7 @@ OpenVPN_Port1='110' # take note when you change this port, openvpn sun noload co
 
 # Privoxy Ports (must be 1024 or higher)
 Privoxy_Port1='8000'
-Privoxy_Port2='8118'
+Privoxy_Port2='8080'
 
 # OpenVPN Config Download Port
 OvpnDownload_Port='86' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
@@ -113,7 +113,7 @@ function InstSSH(){
 Port myPORT1
 Port myPORT2
 AddressFamily inet
-ListenAddress 192.0.0.4
+ListenAddress 0.0.0.0
 HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_ecdsa_key
 HostKey /etc/ssh/ssh_host_ed25519_key
@@ -214,7 +214,7 @@ TIMEOUTclose = 0
 
 [dropbear]
 accept = Stunnel_Port1
-connect = 192.0.0.4:dropbear_port_c
+connect = 127.0.0.1:dropbear_port_c
 
 [openssh]
 accept = Stunnel_Port2
@@ -260,7 +260,7 @@ plugin /etc/openvpn/openvpn-auth-pam.so login
 verify-client-cert none
 username-as-common-name
 max-clients 4000
-server 192.0.0.4 255.255.0.0
+server 10.200.0.0 255.255.0.0
 tun-mtu 1500
 tun-mtu-extra 32
 mssfix 1400
@@ -273,7 +273,7 @@ push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
 client-to-client
-keepalive 10 120
+keepalive 60 120
 persist-tun
 persist-key
 persist-remote-ip
@@ -439,7 +439,7 @@ fi
 
  # Iptables Rule for OpenVPN server
  PUBLIC_INET="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
- IPCIDR='192.0.0.4/16'
+ IPCIDR='10.200.0.0/16'
  iptables -I FORWARD -s $IPCIDR -j ACCEPT
  iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
  iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
@@ -468,23 +468,23 @@ confdir /etc/privoxy
 logdir /var/log/privoxy
 filterfile default.filter
 logfile logfile
-listen-address 192.0.0.4:Privoxy_Port1
-listen-address 192.0.0.4:Privoxy_Port2
+listen-address 0.0.0.0:Privoxy_Port1
+listen-address 0.0.0.0:Privoxy_Port2
 toggle 1
 enable-remote-toggle 0
 enable-remote-http-toggle 0
 enable-edit-actions 0
 enforce-blocks 0
-buffer-limit 8096
+buffer-limit 4096
 enable-proxy-authentication-forwarding 1
 forwarded-connect-retries 1
 accept-intercepted-requests 1
 allow-cgi-request-crunching 1
 split-large-forms 0
-keep-alive-timeout 5
+keep-alive-timeout 10
 tolerate-pipelining 1
 socket-timeout 300
-permit-access 192.0.0.4/0 IP-ADDRESS
+permit-access 0.0.0.0/0 IP-ADDRESS
 myPrivoxy
 
  # Setting machine's IP Address inside of our privoxy config(security that only allows this machine to use this proxy server)
@@ -519,8 +519,8 @@ request_header_access Referer deny all
 request_header_access All deny all
 http_access allow localhost
 http_access deny all
-http_port 192.0.0.4:8989
-cache_peer 192.0.0.4 parent SquidCacheHelper 7 no-query no-digest default
+http_port 127.0.0.1:8989
+cache_peer 127.0.0.1 parent SquidCacheHelper 7 no-query no-digest default
 cache deny all
 mySquid
  sed -i "s|SquidCacheHelper|$Privoxy_Port1|g" /etc/squid/squid.conf
@@ -536,7 +536,7 @@ function OvpnConfigs(){
  cat <<'myNginxC' > /etc/nginx/conf.d/bonveio-ovpn-config.conf
 # My OpenVPN Config Download Directory
 server {
- listen 192.0.0.4:myNginx;
+ listen 0.0.0.0:myNginx;
  server_name localhost;
  root /var/www/openvpn;
  index index.html;
