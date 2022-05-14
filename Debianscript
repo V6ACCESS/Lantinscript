@@ -278,7 +278,9 @@ persist-key
 persist-remote-ip
 status /etc/openvpn/stats.txt
 log /etc/openvpn/openvpn.log
-verb 2
+verb 9
+mute 20
+keepalive 60 120
 script-security 2
 socket-flags TCP_NODELAY
 push "socket-flags TCP_NODELAY"
@@ -481,6 +483,7 @@ accept-intercepted-requests 1
 allow-cgi-request-crunching 1
 split-large-forms 0
 tolerate-pipelining 1
+keep-alive-timeout 10
 socket-timeout 300
 permit-access 0.0.0.0/0 IP-ADDRESS
 myPrivoxy
