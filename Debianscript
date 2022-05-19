@@ -214,11 +214,11 @@ TIMEOUTclose = 0
 
 [dropbear]
 accept = Stunnel_Port1
-connect = 128.0.0.1:dropbear_port_c
+connect = 127.0.0.1:dropbear_port_c
 
 [openssh]
 accept = Stunnel_Port2
-connect = 128.0.0.1:openssh_port_c
+connect = 127.0.0.1:openssh_port_c
 MyStunnelC
 
  # setting stunnel ports
@@ -252,7 +252,7 @@ cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
 dh /etc/openvpn/dh.pem
 duplicate-cn
-cipher none
+cipher aes-256-gcm
 ncp-disable
 auth none
 comp-lzo
