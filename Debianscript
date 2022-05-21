@@ -252,7 +252,8 @@ cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
 dh /etc/openvpn/dh.pem
 duplicate-cn
-cipher aes-256-gcm
+cipher AES-128-CBC
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-256-GCM-SHA384
 ncp-disable
 auth none
 comp-lzo
@@ -267,8 +268,8 @@ mssfix 1400
 reneg-sec 3600
 sndbuf 0
 rcvbuf 0
-push "sndbuf 393216"
-push "rcvbuf 393216"
+push "sndbuf 16384"
+push "rcvbuf 87380"
 push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
