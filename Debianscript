@@ -252,8 +252,7 @@ cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
 dh /etc/openvpn/dh.pem
 duplicate-cn
-cipher AES-128-CBC
-tls-cipher TLS-ECDHE-ECDSA-WITH-AES-256-GCM-SHA384
+cipher none
 ncp-disable
 auth none
 comp-lzo
@@ -261,27 +260,26 @@ plugin /etc/openvpn/openvpn-auth-pam.so login
 verify-client-cert none
 username-as-common-name
 max-clients 4000
-server 10.8.0.0 255.255.0.0
+server 10.200.0.0 255.255.0.0
 tun-mtu 1500
 tun-mtu-extra 32
 mssfix 1400
 reneg-sec 3600
 sndbuf 0
 rcvbuf 0
-push "sndbuf 16384"
-push "rcvbuf 87380"
+push "sndbuf 393216"
+push "rcvbuf 393216"
 push "redirect-gateway def1"
 push "route-method exe"
 push "route-delay 2"
 client-to-client
+keepalive 10 60
 persist-tun
 persist-key
 persist-remote-ip
 status /etc/openvpn/stats.txt
 log /etc/openvpn/openvpn.log
 verb 2
-mute 2
-keepalive 60 120
 script-security 2
 socket-flags TCP_NODELAY
 push "socket-flags TCP_NODELAY"
@@ -441,7 +439,7 @@ fi
 
  # Iptables Rule for OpenVPN server
  PUBLIC_INET="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
- IPCIDR='10.8.0.0/16'
+ IPCIDR='10.200.0.0/16'
  iptables -I FORWARD -s $IPCIDR -j ACCEPT
  iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
  iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
@@ -477,14 +475,14 @@ enable-remote-toggle 0
 enable-remote-http-toggle 0
 enable-edit-actions 0
 enforce-blocks 0
-buffer-limit 0
+buffer-limit 4096
 enable-proxy-authentication-forwarding 1
 forwarded-connect-retries 1
 accept-intercepted-requests 1
 allow-cgi-request-crunching 1
 split-large-forms 0
-tolerate-pipelining 1
 keep-alive-timeout 10
+tolerate-pipelining 1
 socket-timeout 300
 permit-access 0.0.0.0/0 IP-ADDRESS
 myPrivoxy
@@ -521,8 +519,8 @@ request_header_access Referer deny all
 request_header_access All deny all
 http_access allow localhost
 http_access deny all
-http_port 128.0.0.1:8989
-cache_peer 128.0.0.1 parent SquidCacheHelper 7 no-query no-digest default
+http_port 127.0.0.1:8989
+cache_peer 127.0.0.1 parent SquidCacheHelper 7 no-query no-digest default
 cache deny all
 mySquid
  sed -i "s|SquidCacheHelper|$Privoxy_Port1|g" /etc/squid/squid.conf
