@@ -271,9 +271,9 @@ push "sndbuf 393216"
 push "rcvbuf 393216"
 push "redirect-gateway def1"
 push "route-method exe"
-push "route-delay 2"
+push "route-delay 6"
 client-to-client
-keepalive 10 120
+keepalive 10 60
 persist-tun
 persist-key
 persist-remote-ip
